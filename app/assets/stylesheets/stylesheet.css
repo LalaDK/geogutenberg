@@ -1,0 +1,31 @@
+.center {
+  text-align: center;
+}
+
+body {
+  background-color: #d2d5da;
+  margin-left: 40px;
+  margin-right: 40px;
+
+}
+
+.panel {
+  background-color: #fff;
+  border: 1px solid rgb(230, 233, 239);
+  box-shadow: 0 1px 6px rgba(0,0,0,.12);
+  border-radius: 0;
+  padding-bottom: 20px;
+}
+
+#city_mapid, #occurrences_table { 
+  height: 400px; 
+}
+
+#occurrences_table {
+  overflow-y: auto;
+}
+
+.norows {
+  text-align: center;
+  font-style: italic;
+}
