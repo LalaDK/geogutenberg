@@ -1,0 +1,63 @@
+DB Course
+
+Opsætning af første miljø:
+Ubuntu Server 16.04 LTS Standard opsætning
+
+4096 MB DDR3L 1333 MHZ
+Intel Celeron J1900 @ 1.99 GHz
+
+#Install openSSL
+sudo apt-get install openssh-server 
+
+sudo apt-get install htop
+
+# Install java
+echo "Installing Java"
+sudo add-apt-repository ppa:webupd8team/java
+sudo apt-get -y update
+echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | sudo /usr/bin/debconf-set-selections
+sudo apt-get -y install oracle-java8-installer
+sudo update-java-alternatives -s java-8-oracle
+sudo apt-get install -y wget
+
+echo "Installing MongoDB"
+sudo apt-get -y install mongodb-server
+
+echo "Installing Neo4J"
+wget -O - https://debian.neo4j.org/neotechnology.gpg.key | sudo apt-key add -
+echo 'deb https://debian.neo4j.org/repo stable/' | sudo tee /etc/apt/sources.list.d/neo4j.list
+sudo apt-get update
+sudo apt-get install -y neo4j
+sudo chmod a+w /etc/neo4j/neo4j.conf
+echo "dbms.connectors.default_listen_address=0.0.0.0" >> /etc/neo4j/neo4j.conf
+echo "dbms.memory.heap.initial_size=3072m" >> /etc/neo4j/neo4j.conf
+echo "dbms.memory.heap.max_size=4096m" >> /etc/neo4j/neo4j.conf
+echo "browser.remote_content_hostname_whitelist=*" >> /etc/neo4j/neo4j.conf
+echo "org.neo4j.server.webserver.address=0.0.0.0" >> /etc/neo4j/neo4j.conf
+
+sudo chmod a+rw -R /var/log/neo4j
+sudo chmod a+rw -R /var/lib/neo4j
+
+sudo neo4j restart
+
+sudo /usr/bin/neo4j-admin set-initial-password class
+sudo mkdir /usr/share/neo4j/import
+sudo mkdir -p /data/db
+# /etc/mongodb.conf modify bind_ip line to 0.0.0.0 and restart server
+sudo sed -i '/bind_ip = / s/127.0.0.1/0.0.0.0/' /etc/mongodb.conf
+# sudo systemctl restart mongod
+sudo service mongodb restart
+# sudo mongod
+
+sudo apt-get install postgresql-server-dev-9.5
+ sudo apt-get install postgresql postgresql-contrib
+
+
+# Opsæt postgresql
+sudo su - postgres
+psql
+create role development with createdb login password 'password';
+create role test with createdb login password 'password';
+\q
+
+rails _4.0.4_ new geogutenberg --database=postgresql --skip-javascript

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/home/mads/projects/geogutenberg/opsætning.txt</file>
+            <file>file:/home/mads/projects/geogutenberg/app/models/city.rb</file>
+            <file>file:/home/mads/projects/geogutenberg/app/models/occurrence.rb</file>
+            <file>file:/home/mads/projects/geogutenberg/config/database.yml</file>
+            <file>file:/home/mads/projects/geogutenberg/lib/read_books.rb</file>
+            <file>file:/home/mads/projects/geogutenberg/Gemfile</file>
+            <file>file:/home/mads/projects/geogutenberg/app/models/author.rb</file>
+            <file>file:/home/mads/projects/geogutenberg/app/models/book.rb</file>
+            <file>file:/home/mads/projects/geogutenberg/lib/cities15000_load.rb</file>
+        </group>
+    </open-files>
+</project-private>
