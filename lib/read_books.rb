@@ -20,6 +20,7 @@ file_paths.each do |file_path|
 
   File.open(file_path, "r:UTF-8") do |f|
     f.each_line do |line|
+      line = line.scrub
       current_line_no = current_line_no + 1
       puts "Reading line: #{current_line_no} / #{line_count}" if current_line_no % 500 == 0
 
