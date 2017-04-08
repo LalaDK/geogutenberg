@@ -1,0 +1,56 @@
+Reading (24 / 32472) /home/mads/books/files/26193.txt ...
+Found title: The Rover Boys in Southern Waters
+Book exists in database.
+Resetting all occurrences counts to 0 ...
+Reading line: 500 / 7330
+Reading line: 1000 / 7330
+Reading line: 1500 / 7330
+Reading line: 2000 / 7330
+Reading line: 2500 / 7330
+Reading line: 3000 / 7330
+Reading line: 3500 / 7330
+Reading line: 4000 / 7330
+Reading line: 4500 / 7330
+Reading line: 5000 / 7330
+Reading line: 5500 / 7330
+Reading line: 6000 / 7330
+Reading line: 6500 / 7330
+Reading line: 7000 / 7330
+Found 31 cities in The Rover Boys in Southern Waters.
+Elapsed time (seconds): 2
+Average reading time (seconds): 2.7916666666666665
+
+Reading (25 / 32472) /home/mads/books/files/24860-0.txt ...
+Found title: Samuel Richardson's Introduction to Pamela
+Book exists in database.
+Resetting all occurrences counts to 0 ...
+Reading line: 500 / 2213
+Reading line: 1000 / 2213
+Reading line: 1500 / 2213
+Reading line: 2000 / 2213
+Found 63 cities in Samuel Richardson's Introduction to Pamela.
+Elapsed time (seconds): 1
+Average reading time (seconds): 2.72
+
+Reading (26 / 32472) /home/mads/books/files/23834-0.txt ...
+Found title: Qing Xiang Za Ji
+Book exists in database.
+Resetting all occurrences counts to 0 ...
+Reading line: 500 / 1541
+Reading line: 1000 / 1541
+Reading line: 1500 / 1541
+Found 5 cities in Qing Xiang Za Ji.
+Elapsed time (seconds): 0
+Average reading time (seconds): 2.6153846153846154
+
+Reading (27 / 32472) /home/mads/books/files/litpe10.txt ...
+Found title: Literary and Philosophical Essays
+Book exists in database.
+Resetting all occurrences counts to 0 ...
+Reading line: 500 / 15473
+Reading line: 1000 / 15473
+Reading line: 1500 / 15473
+Reading line: 2000 / 15473
+Reading line: 2500 / 15473
+...
+
