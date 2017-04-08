@@ -1,13 +1,16 @@
 #!/usr/bin/env ruby
 directory = ARGV[0] || Rails.root.join('data', 'books')
+line_status_file = Rails.root.join('lib', 'read_books_line')
 file_paths = Dir[directory + "**/*.txt"]
 book_count = file_paths.length
-current_book_no = 0
+current_book_no = File.exist?(line_status_file) ? (File.open(line_status_file) {|f| f.readline}).to_i :  0
 avg_runtimes = []
 
 puts "Found #{file_paths.length} books."
-file_paths.each do |file_path|
+file_paths.each_with_index do |file_path, index|
+  break if index < current_book_no - 1
   current_book_no = current_book_no + 1
+  File.write(line_status_file, index.to_s)
   puts "Reading (#{current_book_no} / #{book_count}) #{file_path} ..."
   raise Exception, "File not found." if !File.exist?(file_path.to_s)
   time_start = Time.now

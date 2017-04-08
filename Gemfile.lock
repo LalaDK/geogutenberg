@@ -84,8 +84,6 @@ GEM
     tzinfo (0.3.53)
     uglifier (3.1.13)
       execjs (>= 0.3.0, < 3)
-    utf8-cleaner (0.2.5)
-      activesupport
 
 PLATFORMS
   ruby
@@ -97,7 +95,6 @@ DEPENDENCIES
   rails (= 4.0.4)
   sdoc
   uglifier (>= 1.3.0)
-  utf8-cleaner
 
 BUNDLED WITH
    1.14.6
