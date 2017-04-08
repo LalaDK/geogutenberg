@@ -73,13 +73,15 @@ file_paths.each_with_index do |file_path, index|
     
         ### Check for cities
         words = line.split
-        words.each do |word|
-          if !current_book.nil?
-            city = City.where(:name => word).first
-            if !city.nil?
-              occurrence = Occurrence.where(:city_id => city.id, :book_id => current_book.id).first || Occurrence.new({city: city, book: current_book})
-              occurrence.count = occurrence.count + 1
-              occurrence.save
+        if City.where(:name => words).count > 0
+          words.each do |word|
+            if !current_book.nil?
+              city = City.where(:name => word).first
+              if !city.nil?
+                occurrence = Occurrence.where(:city_id => city.id, :book_id => current_book.id).first || Occurrence.new({city: city, book: current_book})
+                occurrence.count = occurrence.count + 1
+                occurrence.save
+              end
             end
           end
         end
