@@ -52,7 +52,7 @@ file_paths.each do |file_path|
           # Check for release date
         elsif line.length > 14 && line[0..13] == "Release Date: " && current_book.release_date.nil?
           # Parse string to date
-          date = line[14..-1].match(/(\w+\s\d,\s\d+)/)[1].strip
+          date = line[14..-1].match(/(\w+\s\d+,\s\d+)/)[1].strip
           puts "Found release date: #{date}"
           current_book.release_date = Date.parse(date)
           current_book.save
