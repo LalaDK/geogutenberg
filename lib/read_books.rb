@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
-file_paths = Dir[Rails.root.join('data', 'books', '**', '*.txt')]
+file_paths = ARGV[0] || Dir[Rails.root.join('data', 'books', '**', '*.txt')]
 book_count = file_paths.length
 current_book_no = 0
 avg_runtimes = []
