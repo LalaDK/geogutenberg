@@ -56,7 +56,7 @@ file_paths.each_with_index do |file_path, index|
           # Check for release date
         elsif line.length > 14 && line[0..13] == "Release Date: " && current_book.release_date.nil?
           # Parse string to date
-          date = line[14..-1].match(/(\w+\s\d+,\s\d+)/)[1].strip
+          date = (line[14..-1].match(/(\w+\s\d+,\s\d+)/).first || line[14..-1].match(/(\w+,\s\d+)/).first).strip
           puts "Found release date: #{date}"
           current_book.release_date = Date.parse(date)
           current_book.save
@@ -99,3 +99,4 @@ file_paths.each_with_index do |file_path, index|
   puts "Elapsed time (seconds): #{elapsed_time_in_seconds}"
   puts "Average reading time (seconds): #{avg_time}"
 end
+puts "Total elapsed time (seconds): #{avg_runtimes.inject{ |sum, el| sum + el }.to_f}"
