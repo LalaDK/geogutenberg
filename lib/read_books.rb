@@ -77,7 +77,7 @@ file_paths.each_with_index do |file_path, index|
         if cities.count > 0
           words.each do |word|
             if !current_book.nil?
-              city = city.find{|c| c.name == word}
+              city = cities.find{|c| c.name == word}
               if !city.nil?
                 occurrence = Occurrence.where(:city_id => city.id, :book_id => current_book.id).first || Occurrence.new({city: city, book: current_book})
                 occurrence.count = occurrence.count + 1
