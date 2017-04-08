@@ -18,7 +18,7 @@ file_paths.each do |file_path|
   book_exists = false
   count_reset_to_default = false
 
-  File.open(file_path, "r") do |f|
+  File.open(file_path, "r:UTF-8") do |f|
     f.each_line do |line|
       current_line_no = current_line_no + 1
       puts "Reading line: #{current_line_no} / #{line_count}" if current_line_no % 500 == 0
