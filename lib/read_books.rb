@@ -8,7 +8,7 @@ avg_runtimes = []
 
 puts "Found #{file_paths.length} books."
 file_paths.each_with_index do |file_path, index|
-  break if index < current_book_no - 1
+  next if index < current_book_no - 1
   current_book_no = current_book_no + 1
   File.write(line_status_file, index.to_s)
   puts "Reading (#{current_book_no} / #{book_count}) #{file_path} ..."
