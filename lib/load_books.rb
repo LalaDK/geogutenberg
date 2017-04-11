@@ -1,10 +1,9 @@
 #!/usr/bin/env ruby
 
-
 if !File.exists?("lib/files_index.txt")
   directory = ARGV[0] || Rails.root.join('data', 'books')  
   arr = Dir[directory + "**/*.txt"]
-  File.open("files_index.txt", "w+") do |f|
+  File.open("lib/files_index.txt", "w+") do |f|
     arr.each { |element| f.puts(element) }
   end
 end
@@ -48,7 +47,7 @@ file_paths.each_with_index do |file_path, index|
           current_book.file_path = file_path
           current_book.save
           # Check for author
-        elsif line.length > 8 && line[0..7] == "Author: " && current_book.author.nil?
+        elsif !current_book.nil? && line.length > 8 && line[0..7] == "Author: " && current_book.author.nil?
           author_name = line[8..-1].strip
           puts "Found author: #{author_name}"
           current_author = Author.where(:name => author_name).first || Author.new({name: author_name})
@@ -58,27 +57,30 @@ file_paths.each_with_index do |file_path, index|
             current_book.save
           end
           # Check for translator
-        elsif line.length > 12 &&  line[0..11] == "Translator: " && current_book.translator.nil?
+        elsif !current_book.nil? && line.length > 12 &&  line[0..11] == "Translator: " && current_book.translator.nil?
           translator = line[12..-1].strip
           puts "Found translator: #{translator}"
           current_book.translator = translator
           current_book.save
           # Check for release date
-        elsif line.length > 14 && line[0..13] == "Release Date: " && current_book.release_date.nil?
+        elsif !current_book.nil? && line.length > 14 && line[0..13] == "Release Date: " && current_book.release_date.nil?
           # Parse string to date
-          date_str = line[14..-1]
-          date = (date_str.match(/(\w+\s\d+,\s\d+)/) || [])[0]
-          date = (date_str.match(/(\w+,\s\d+)/) || [])[0] if date.nil?
-          date = (date_str.match(/\w+\s\d+/) || [])[0] if date.nil?
-          date = date.try(:strip)
-          puts "Unable to parse release date: #{line}" if date.blank?
-          if !date.blank?
-            puts "Found release date: #{date}"
-            current_book.release_date = Date.parse(date)
-            current_book.save
+          begin
+            date_str = line[14..-1]
+            date = (date_str.match(/(\w+\s\d+,\s\d+)/) || [])[0]
+            date = (date_str.match(/(\w+,\s\d+)/) || [])[0] if date.nil?
+            date = (date_str.match(/\w+\s\d+/) || [])[0] if date.nil?
+            date = date.try(:strip)
+            puts "Unable to parse release date: #{line}" if date.blank?
+            if !date.blank?
+              puts "Found release date: #{date}"
+              current_book.release_date = Date.parse(date)
+              current_book.save
+            end
+          rescue Exception => e
+            puts "Failed to parse date ..."
           end
         end
-    
         if book_exists && !count_reset_to_default 
           puts "Resetting all occurrences counts to 0 ..."
           Occurrence.where(:book_id => current_book.id).to_a.each do |occurrence|
@@ -116,5 +118,4 @@ file_paths.each_with_index do |file_path, index|
   puts "Elapsed time (seconds): #{elapsed_time_in_seconds}"
   puts "Average reading time (seconds): #{avg_time}"
 end
-puts "Total elapsed time (seconds): #{avg_runtimes.inject{ |sum, el| sum + el }.to_f}"
-puts ""
+puts "Total elapsed time (seconds): #{avg_runtimes.inject{ |sum, el| sum + el }.to_f}\n"
