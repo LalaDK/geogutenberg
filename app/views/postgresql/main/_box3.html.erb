@@ -1,0 +1,36 @@
+<div class="col-xs-12 panel" ng-controller="box3Ctrl" ng-init="init();">
+  <h4>Books by author</h4>
+  Given an author name the application lists all books written by that author and plots all cities mentioned in any of the books onto a map.
+  <div class="form-inline">
+    <div class="form-group">
+      <input type="text" ng-model="author" typeahead-on-select="onAuthorSelected($item, $model, $label, $event)" uib-typeahead="author.name as author.name for author in getAuthors($viewValue)" class="form-control" placeholder="Search author ..." typeahead-loading="loadingAuthors" typeahead-no-results="noResults">
+      <i ng-show="loadingAuthors" class="glyphicon glyphicon-refresh"></i>
+      <div ng-show="noResults">
+        <i class="glyphicon glyphicon-remove"></i> No cities found.
+      </div>
+    </div>
+    <br><br>
+  </div>
+
+  <div id="box3_map" class="col-xs-8"></div>
+  <div id="occurrences_table" class="col-xs-4">
+    <table class="table table-striped table-bordered">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Release Date</th>
+          <th>Translator</th>
+        </tr>
+      <tbody>
+        <tr ng-show="!currentAuthor.books.length"><td colspan="100" class="norows">No books to show.</td></tr>
+        <tr ng-repeat="book in currentAuthor.books">
+          <td><a ng-click="showOccurrences(book);">{{book.title}}</a></td>
+          <td>{{book.release_date}}</td>
+          <td>{{book.translator}}</td>
+        </tr>
+      </tbody>
+      </thead>
+    </table>
+  </div>
+</div>
+<%= javascript_include_tag "box3_ctrl" %>

@@ -1,40 +1,11 @@
-<div ng-controller="ctrl" ng-init="init();" nclass="col-xs-12 panel"g-cloak>
-  <div class="col-xs-12 panel">
-    <h3>Books by city name</h3>
-    <input type="text" ng-model="city" uib-typeahead="city.name as city for city in getCity($viewValue)" typeahead-loading="loadingCities" typeahead-no-results="noResults">
-  </div>
-  <div class="col-xs-12 panel">
-    <h4>Cities occurring in books</h4>
-    Given a book title, the application plots all cities mentioned in the book onto a map.
-    <div class="form-inline">
-      <div class="form-group">
-        <input type="text" ng-model="book" typeahead-on-select="showBook(book);" uib-typeahead="book as book.title for book in books | filter:$viewValue | limitTo:8" class="form-control" placeholder="Search book title ...">
-      </div>
-      <br><br>
-    </div>
-    
-    <div id="city_mapid" class="col-xs-8"></div>
-    <div id="occurrences_table" class="col-xs-4">
-      <table class="table table-striped table-bordered">
-        <thead>
-          <tr>
-            <th>City</th>
-            <th>Occurences</th>
-          </tr>
-        <tbody>
-          <tr ng-show="!currentBook.occurrences.length"><td colspan="100" class="norows">No occurrences to show.</td></tr>
-          <tr ng-repeat="occurrence in currentBook.occurrences | orderBy: '-count'">
-            <td><a ng-click="goToLocation(occurrence.city.latitude, occurrence.city.longitude);">{{occurrence.city.name}}</a></td>
-            <td>{{occurrence.count}}</td>
-          </tr>
-        </tbody>
-        </thead>
-      </table>
-    </div>
-  </div>
-</div>
 <%= javascript_include_tag "services" %>
 <%= javascript_include_tag "js_module" %>
-<%= javascript_include_tag "js_application" %>
 <%= stylesheet_link_tag "https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" %>
 <%= javascript_include_tag "https://unpkg.com/leaflet@1.0.3/dist/leaflet.js" %>
+
+<div ng-app="geogutenberg" ng-cloak>
+  <%= render "box1" %>
+  <%= render "box2" %>
+  <%= render "box3" %>
+  <%= render "box4" %>
+</div>

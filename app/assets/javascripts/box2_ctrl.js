@@ -1,24 +1,21 @@
 // http://leafletjs.com/examples/quick-start/
-var map;
-app.controller('ctrl', ["$scope", "Book", function ($scope, Book) {
-    $scope.books = [];
+app.controller('box2Ctrl', ["$scope", "Book", function ($scope, Book) {
     $scope.cities = [];
-    $scope.currentBook = null;
+    $scope.book = null;
+    var map;
 
     $scope.init = function () {
-      map = L.map('city_mapid').setView([55.67594, 12.56553], 6);
-      $scope.getBooks();
+      map = L.map('box2_map').setView([55.67594, 12.56553], 6);
       resetMap();
     };
 
-
-    $scope.getBooks = function () {
-      $scope.books = Book.query();
+    $scope.getBooks = function (searchStr) {
+      return Book.query({search: searchStr}).$promise;
     };
 
-    $scope.showBook = function (book) {
+    $scope.onBookSelected = function (book) {
       Book.get({id: book.id}, function (data) {
-        $scope.currentBook = data;
+        $scope.book = data;
         var markers = (data.occurrences || []).map(function (occurence) {
           var description = occurence.city.name + " (occurrences: " + occurence.count + ")"
           return {
@@ -32,7 +29,7 @@ app.controller('ctrl', ["$scope", "Book", function ($scope, Book) {
       });
     };
 
-    $scope.goToLocation = function(latitude, longitude) {
+    $scope.goToLocation = function (latitude, longitude) {
       map.setView([latitude, longitude], 7);
     };
 

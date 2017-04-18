@@ -17,7 +17,7 @@ body {
   padding-bottom: 20px;
 }
 
-#city_mapid, #occurrences_table { 
+#box2_map, #box3_map, #box4_map, #occurrences_table { 
   height: 400px; 
 }
 
@@ -28,4 +28,37 @@ body {
 .norows {
   text-align: center;
   font-style: italic;
+}
+
+#loading-container {
+  display:none;
+  opacity: 0.5;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  padding: 0;
+  margin: 0;
+  top: 0;
+  left: 0;
+  background-color: black;
+  z-index: 10000;
+}
+
+#loading {
+  display:none;
+  position: fixed;
+  left: calc(50% - 90px);
+  top: calc(50% - 90px);
+  text-align:center;
+  background-color: white;
+  padding-top: 25px;
+  width: 180px;
+  height: 180px;
+  border-radius: 20px;
+  border: 1px solid #333;
+  z-index: 10001;
+}
+
+#loading img {
+  width: 130px;
 }

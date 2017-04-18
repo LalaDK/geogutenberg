@@ -2,6 +2,7 @@ class Occurrence < ActiveRecord::Base
   belongs_to :book
   belongs_to :city
   field :count, as: :integer, default: 0
-  add_index [:book_id, :city_id]
+  index :book_id
+  index :city_id
 end
 Occurrence.auto_upgrade!
