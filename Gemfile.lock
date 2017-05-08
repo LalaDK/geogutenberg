@@ -45,8 +45,6 @@ GEM
       treetop (~> 1.4.8)
     method_source (0.8.2)
     mime-types (1.25.1)
-    mini_record (0.4.7)
-      activerecord (>= 3.2.0)
     minitest (4.7.5)
     multi_json (1.12.1)
     pg (0.20.0)
@@ -102,7 +100,6 @@ PLATFORMS
 DEPENDENCIES
   geokit-rails
   jbuilder (~> 1.2)
-  mini_record
   pg
   pry
   rails (= 4.0.4)
