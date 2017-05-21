@@ -1,9 +1,8 @@
 class Book < ActiveRecord::Base
-  field :title, as: :text, index: true
-  field :translator, as: :text
-  field :release_date, as: :date
-  field:file_path, as: :text
-  belongs_to :author
+  #attr_accessor :title
+  #attr_accessor :translator
+  #attr_accessor :release_date
+  #attr_accessor :file_path
   has_many :occurrences
+  belongs_to :author
 end
-Book.auto_upgrade!

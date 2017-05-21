@@ -1,5 +1,4 @@
 class Author < ActiveRecord::Base
-  field :name, as: :text, index: true
+  #attr_accessor :name
   has_many :books
 end
-Author.auto_upgrade!

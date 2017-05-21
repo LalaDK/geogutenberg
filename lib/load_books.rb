@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
-
+puts ARGV.inspect
 if !File.exists?("lib/files_index.txt")
   directory = ARGV[0] || Rails.root.join('data', 'books')  
   arr = Dir[directory + "**/*.txt"]
@@ -49,13 +49,13 @@ file_paths.each_with_index do |file_path, index|
       if !line.blank?
         if current_book.title.blank? && line.length > 6 && line[0..6] == "Title: "
           title = line[6..-1].strip
-          puts "Found title: #{title}"
+          #puts "Found title: #{title}"
           current_book.title = title
 
           # Check for author
         elsif current_book.author.blank? && line.length > 8 && line[0..7] == "Author: "
           author_name = line[8..-1].strip
-          puts "Found author: #{author_name}"
+          #puts "Found author: #{author_name}"
           current_author = Author.where(:name => author_name).first || Author.new({name: author_name})
           current_author.save
           current_book.author = current_author
@@ -63,8 +63,9 @@ file_paths.each_with_index do |file_path, index|
           # Check for translator
         elsif current_book.translator.blank? && line.length > 12 &&  line[0..11] == "Translator: "
           translator = line[12..-1].strip
-          puts "Found translator: #{translator}"
+          #puts "Found translator: #{translator}"
           current_book.translator = translator
+          
           # Check for release date
         elsif current_book.release_date.blank? && line.length > 14 && line[0..13] == "Release Date: "
           # Parse string to date
@@ -74,18 +75,18 @@ file_paths.each_with_index do |file_path, index|
             date = (date_str.match(/(\w+,\s\d+)/) || [])[0] if date.nil?
             date = (date_str.match(/\w+\s\d+/) || [])[0] if date.nil?
             date = date.try(:strip)
-            puts "Unable to parse release date: #{line}" if date.blank?
+            #puts "Unable to parse release date: #{line}" if date.blank?
             if !date.blank?
-              puts "Found release date: #{date}"
+              #puts "Found release date: #{date}"
               current_book.release_date = Date.parse(date)
               
             end
           rescue Exception => e
-            puts "Failed to parse date ..."
+            #puts "Failed to parse date ..."
           end
         end
         if book_exists && !count_reset_to_default 
-          puts "Resetting all occurrences counts to 0 ..."
+          #puts "Resetting all occurrences counts to 0 ..."
           Occurrence.where(:book_id => current_book.id).to_a.each do |occurrence|
             occurrence.count = 0
             occurrence.save
@@ -94,22 +95,20 @@ file_paths.each_with_index do |file_path, index|
         end
     
         ### Check for cities
-        if !current_book.nil?
-          city_names = line.scan(/(([A-ZÅØÆ][\wøæå\-\é\´\`\'éíìúùüîïáàäóòö]+)(\s([A-ZÅØÆ][\wøæå\-\é\´\`\'éíìúùüîïáàäóòö]+))*)/).map &:first
-          city_names.each do |city_name|
-            if cities.has_key?(city_name.to_sym)
-              count = city_names.count{|word| word == city_name}
-              occurrence = Occurrence.where(:city_id => cities[city_name.to_sym], :book_id => current_book.id).first || Occurrence.new({city_id: city_name.to_sym, book: current_book})
-              occurrence.count = occurrence.count + count
-              occurrence.save
-            end
+        city_names = line.scan(/(([A-ZÅØÆ][\wøæå\-\é\´\`\'éíìúùüîïáàäóòö]+)(\s([A-ZÅØÆ][\wøæå\-\é\´\`\'éíìúùüîïáàäóòö]+))*)/).map &:first
+        city_names.each do |city_name|
+          if cities.has_key?(city_name.to_sym)
+            count = city_names.count{|word| word == city_name}
+            occurrence = Occurrence.where(:city_id => cities[city_name.to_sym], :book_id => current_book.id).first || Occurrence.new({city_id: cities[city_name.to_sym], book: current_book})
+            occurrence.count = occurrence.count + count
+            occurrence.save
           end
         end
       end
     end
+  current_book.save
   end
 
-  current_book.save
   
   #hits = Occurrence.where(:book_id => current_book.id).count
   #puts "Found #{hits} cities in #{current_book.title}."

@@ -1,2 +1,0 @@
-/home/mads/projects/geogutenberg/data/books/3889.txt
-/home/mads/projects/geogutenberg/data/books/Tralala/31.txt
