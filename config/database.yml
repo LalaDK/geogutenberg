@@ -6,12 +6,3 @@ development:
   pool: 5
   username: development
   password: password
-
-test:
-  host: localhost
-  adapter: postgresql
-  encoding: unicode
-  database: geogutenberg_test
-  pool: 5
-  username: test
-  password: password
