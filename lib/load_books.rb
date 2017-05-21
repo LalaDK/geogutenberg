@@ -7,6 +7,9 @@ if !File.exists?("lib/files_index.txt")
     arr.each { |element| f.puts(element) }
   end
 end
+puts "Loading cities ..."
+cities = City.all.to_a.reduce({}){|result, city| result[city.name.to_sym] = city.id;result}
+puts "Done loading cities ..."
 
 line_status_file = Rails.root.join('lib', 'books_current_line')
 file_paths = File.readlines("lib/files_index.txt").map &:strip
@@ -24,7 +27,7 @@ file_paths.each_with_index do |file_path, index|
   time_start = Time.now
   current_book = nil
   current_author = nil
-  line_count = %x{wc -l #{file_path}}.split[0].to_i
+  #line_count = %x{wc -l #{file_path}}.split[0].to_i
   current_line_no = 1
   book_exists = false
   count_reset_to_default = false
@@ -33,7 +36,7 @@ file_paths.each_with_index do |file_path, index|
     f.each_line do |line|
       line = line.scrub
       current_line_no = current_line_no + 1
-      puts "Reading line: #{current_line_no} / #{line_count}" if current_line_no % 500 == 0
+      #puts "Reading line: #{current_line_no} / #{line_count}" if current_line_no % 1000 == 0
 
       ### Check for metadata
       # Check for title
@@ -92,12 +95,11 @@ file_paths.each_with_index do |file_path, index|
     
         ### Check for cities
         if !current_book.nil?
-          words = line.split
-          cities = City.where(:name => words).to_a
-          if cities.count > 0
-            cities.each do |city|
-              count = words.count{|word| word == city.name}
-              occurrence = Occurrence.where(:city_id => city.id, :book_id => current_book.id).first || Occurrence.new({city: city, book: current_book})
+          city_names = line.scan(/(([A-ZÅØÆ][\wøæå\-\é\´\`\'éíìúùüîïáàäóòö]+)(\s([A-ZÅØÆ][\wøæå\-\é\´\`\'éíìúùüîïáàäóòö]+))*)/).map &:first
+          city_names.each do |city_name|
+            if cities.has_key?(city_name.to_sym)
+              count = city_names.count{|word| word == city_name}
+              occurrence = Occurrence.where(:city_id => cities[city_name.to_sym], :book_id => current_book.id).first || Occurrence.new({city_id: city_name.to_sym, book: current_book})
               occurrence.count = occurrence.count + count
               occurrence.save
             end

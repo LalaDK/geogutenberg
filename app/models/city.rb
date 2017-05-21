@@ -12,3 +12,4 @@ class City < ActiveRecord::Base
     :lat_column_name => :latitude,
     :lng_column_name => :longitude
 end
+City.auto_upgrade!
