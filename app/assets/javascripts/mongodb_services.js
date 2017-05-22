@@ -1,5 +1,5 @@
 /* global app */
-angular.module('services', ['ngResource'])
+angular.module('mongodbServices', ['ngResource'])
 .factory('Book', ["$resource", function ($resource) {
     return $resource('/postgresql/book/:id', {}, {
       byCityId: {method: 'GET', isArray: true},

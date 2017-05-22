@@ -1,0 +1,53 @@
+<div class="col-xs-12 panel"ng-controller="mongodbCtrl" ng-init="init();">
+  <h3>MongoDB performance test</h3>
+  <button type="button" ng-click="startTest();" ng-disabled="testRunning" class="btn btn-primary">Start</button>
+  <br><br>
+  <div id="mongodb_test_results">
+    <table class="table table-striped table-bordered">
+      <thead>
+        <tr>
+          <th>Query</th>
+          <th>Status</th>
+          <th>Average</th>
+          <th>Median</th>
+          <th>Total time</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Query 1</td>
+          <td>{{query1status}}</td>
+          <td>{{query1average}}</td>
+          <td>{{query1median}}</td>
+          <td>{{query1result}}</td>
+        </tr>
+        <tr>
+          <td>Query 2</td>
+          <td>{{query2status}}</td>
+          <td>{{query2average}}</td>
+          <td>{{query2median}}</td>
+          <td>{{query2result}}</td>
+        </tr>
+        <tr>
+          <td>Query 3</td>
+          <td>{{query3status}}</td>
+          <td>{{query3average}}</td>
+          <td>{{query3median}}</td>
+          <td>{{query3result}}</td>
+        </tr>
+        <tr>
+          <td>Query 4</td>
+          <td>{{query4status}}</td>
+          <td>{{query4average}}</td>
+          <td>{{query4median}}</td>
+          <td>{{query4result}}</td>
+        </tr>
+        <tr>
+          <td colspan="4"><b>Total:</b></td>
+          <td><b>{{totalTime}}</b></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<%= javascript_include_tag "performance_test/mongodb_ctrl" %>

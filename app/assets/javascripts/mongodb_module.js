@@ -1,12 +1,4 @@
-function showLoading() {
-  $("#loading-container, #loading").show();
-};
-
-function hideLoading() {
-  $("#loading-container, #loading").hide();
-};
-
-var app = angular.module('geogutenberg', ['ui.bootstrap', 'services', ['$httpProvider', '$provide', function($httpProvider, $provide) {
+var app = angular.module('geogutenberg', ['ui.bootstrap', 'mongodbServices', ['$httpProvider', '$provide', function($httpProvider, $provide) {
     $provide.factory('interceptor', ["$q", function($q) {
     return {
       'request': function(config) {
@@ -31,3 +23,11 @@ var app = angular.module('geogutenberg', ['ui.bootstrap', 'services', ['$httpPro
   $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
   $httpProvider.defaults.headers.common['X-CSRF-Token'] = $('meta[name=csrf-token]').attr('content');
 }]]);
+
+function showLoading() {
+  $("#loading-container, #loading").show();
+};
+
+function hideLoading() {
+  $("#loading-container, #loading").hide();
+};
