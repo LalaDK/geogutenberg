@@ -5,6 +5,10 @@ gem 'uglifier', '>= 1.3.0'
 gem 'jbuilder', '~> 1.2'
 gem 'geokit-rails'
 gem 'pry'
+gem 'mongo'
+gem 'mongoid'
+gem 'mongoid-geospatial', require: 'mongoid/geospatial'
+
 
 group :doc do
   gem 'sdoc', require: false
