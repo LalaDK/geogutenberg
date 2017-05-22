@@ -9,4 +9,14 @@ Geogutenberg::Application.routes.draw do
   end
   
   root to: 'postgresql/main#index'
+  
+  
+  namespace :mongodb do
+    resources :main, :only => ["index"]
+    
+  end
+  
+  namespace :performance_test do
+    resources :main, :only => ["index"]
+  end
 end

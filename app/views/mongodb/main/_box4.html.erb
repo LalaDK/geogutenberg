@@ -1,0 +1,32 @@
+<div class="col-xs-12 panel" ng-controller="box4Ctrl" ng-init="init();">
+  <h4>Books by geolocation</h4>
+  Given a geolocation, the application lists all books mentioning a city in vicinity of the given geolocation.
+  <div class="form-inline">
+    <div class="form-group">
+      <select class="form-control" ng-model="radius" ng-options="radius as radius + ' km' for radius in radiuses"></select>
+    </div>
+    <br><br>
+  </div>
+
+  <div id="box4_map" class="col-xs-8"></div>
+  <div id="occurrences_table" class="col-xs-4">
+    <table class="table table-striped table-bordered">
+      <thead>
+        <tr>
+          <th>Book</th>
+          <th>City</th>
+          <th>Occurrences</th>
+        </tr>
+      <tbody>
+        <tr ng-show="!occurrences.length"><td colspan="100" class="norows">No books to show.</td></tr>
+        <tr ng-repeat="occurrence in occurrences | orderBy: '-count'">
+          <td>{{occurrence.book.title}}</td>
+          <td>{{occurrence.city.name}}</td>
+          <td>{{occurrence.count}}</td>
+        </tr>
+      </tbody>
+      </thead>
+    </table>
+  </div>
+</div>
+<%= javascript_include_tag "mongodb/box4_ctrl" %>
