@@ -25,8 +25,7 @@ class Postgresql::BookController < ApplicationController
   def books_by_city
     respond_to do |format|
       format.json do
-        query_params = {}
-        query_params[:city_id] = params[:city_id].to_i
+        query_params = {:city_id => params[:city_id].to_i}
         book_ids = Postgresql::Occurrence.where(query_params).pluck(:book_id)
         query = Postgresql::Book.where(:id => book_ids)
         render json: query.to_a.as_json(:include => [:author])
