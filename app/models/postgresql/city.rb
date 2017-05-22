@@ -1,4 +1,4 @@
-class City < ActiveRecord::Base
+class Postgresql::City < ActiveRecord::Base
   #attr_accessor :geonameid
   #attr_accessor :name
   #attr_accessor :latitude

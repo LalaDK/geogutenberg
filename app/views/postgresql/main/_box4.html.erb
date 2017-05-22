@@ -1,6 +1,6 @@
 <div class="col-xs-12 panel" ng-controller="box4Ctrl" ng-init="init();">
   <h4>Books by geolocation</h4>
-  Given a geolocation, the application lists all books mentioning a city in vicinity of the given geolocation.
+  Given a geolocation, the application lists all books mentioning a city in vicinity of the given geolocation. Click on the map to list books.
   <div class="form-inline">
     <div class="form-group">
       <select class="form-control" ng-model="radius" ng-options="radius as radius + ' km' for radius in radiuses"></select>
@@ -29,4 +29,4 @@
     </table>
   </div>
 </div>
-<%= javascript_include_tag "box4_ctrl" %>
+<%= javascript_include_tag "postgresql/box4_ctrl" %>

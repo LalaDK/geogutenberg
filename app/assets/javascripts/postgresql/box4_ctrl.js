@@ -1,7 +1,7 @@
 app.controller('box4Ctrl', ["$scope", "Book",
   function ($scope, Book) {
     $scope.radius = 200;
-    $scope.radiuses = [5, 10, 25, 50, 100, 200, 400, 500, 1000];
+    $scope.radiuses = [1, 2, 3, 5, 10, 25, 50, 75, 100, 150, 200];
     $scope.occurrences = [];
     var map;
     var circle;

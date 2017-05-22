@@ -2,7 +2,7 @@
 angular.module('services', ['ngResource'])
 .factory('Book', ["$resource", function ($resource) {
     return $resource('/postgresql/book/:id', {}, {
-      byCityId: {method: 'GET', isArray: true},
+      byCityId: {method: 'GET', isArray: true, url: '/postgresql/booksByCity'},
       byLocation: {method: 'GET', isArray: true, url: '/postgresql/booksByLocation'}
     });
   }])

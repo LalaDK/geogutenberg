@@ -1,6 +1,6 @@
 <div class="col-xs-12 panel" ng-controller="box3Ctrl" ng-init="init();">
   <h4>Books by author</h4>
-  Given an author name the application lists all books written by that author and plots all cities mentioned in any of the books onto a map.
+  Given an author name the application lists all books written by that author and plots all cities mentioned in any of the books onto a map. Click on a book title to plot the cities mentioned.
   <div class="form-inline">
     <div class="form-group">
       <input type="text" ng-model="author" typeahead-on-select="onAuthorSelected($item, $model, $label, $event)" uib-typeahead="author.name as author.name for author in getAuthors($viewValue)" class="form-control" placeholder="Search author ..." typeahead-loading="loadingAuthors" typeahead-no-results="noResults">
@@ -33,4 +33,4 @@
     </table>
   </div>
 </div>
-<%= javascript_include_tag "box3_ctrl" %>
+<%= javascript_include_tag "postgresql/box3_ctrl" %>

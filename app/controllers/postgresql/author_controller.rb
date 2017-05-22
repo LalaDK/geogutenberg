@@ -3,9 +3,9 @@ class Postgresql::AuthorController < ApplicationController
     respond_to do |format|
       format.json do
         if params.has_key?(:search)
-          query = Author.where("name LIKE ?",  '%' + params[:search].to_s + '%').limit(20)
+          query = Postgresql::Author.where("name LIKE ?",  '%' + params[:search].to_s + '%').limit(20)
         else
-          query = Author.all.limit(20)
+          query = Postgresql::Author.all.limit(20)
         end
         render json: query.to_a
       end
@@ -15,7 +15,7 @@ class Postgresql::AuthorController < ApplicationController
   def show
     respond_to do |format|
       format.json do
-        author = Author.find(params[:id])
+        author = Postgresql::Author.find(params[:id])
         render json: author.as_json(:include => {:books => {:include => {:occurrences => {:include => [:city]}}}})
       end
     end

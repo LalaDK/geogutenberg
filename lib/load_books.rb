@@ -1,5 +1,4 @@
 #!/usr/bin/env ruby
-puts ARGV.inspect
 if !File.exists?("lib/files_index.txt")
   directory = ARGV[0] || Rails.root.join('data', 'books')  
   arr = Dir[directory + "**/*.txt"]
@@ -8,7 +7,7 @@ if !File.exists?("lib/files_index.txt")
   end
 end
 puts "Loading cities ..."
-cities = City.all.to_a.reduce({}){|result, city| result[city.name.to_sym] = city.id;result}
+cities = Postgresql::City.all.to_a.reduce({}){|result, city| result[city.name.to_sym] = city.id;result}
 puts "Done loading cities ..."
 
 line_status_file = Rails.root.join('lib', 'books_current_line')
@@ -29,9 +28,9 @@ file_paths.each_with_index do |file_path, index|
   raise "File not found." unless File.exists?(file_path)
   time_start = Time.now
   
-  current_book = Book.where(:file_path => file_path).first
+  current_book = Postgresql::Book.where(:file_path => file_path).first
   book_exists = !current_book.nil?
-  current_book = Book.new({:file_path => file_path}) if current_book.nil?
+  current_book = Postgresql::Book.new({:file_path => file_path}) if current_book.nil?
   current_book.save
   
   current_author = nil
@@ -50,13 +49,13 @@ file_paths.each_with_index do |file_path, index|
         if current_book.title.blank? && line.length > 6 && line[0..6] == "Title: "
           title = line[6..-1].strip
           #puts "Found title: #{title}"
-          current_book.title = title
+          current_book.title = title[0 .. 254]
 
           # Check for author
         elsif current_book.author.blank? && line.length > 8 && line[0..7] == "Author: "
           author_name = line[8..-1].strip
           #puts "Found author: #{author_name}"
-          current_author = Author.where(:name => author_name).first || Author.new({name: author_name})
+          current_author = Postgresql::Author.where(:name => author_name).first || Postgresql::Author.new({name: author_name})
           current_author.save
           current_book.author = current_author
           
@@ -87,7 +86,7 @@ file_paths.each_with_index do |file_path, index|
         end
         if book_exists && !count_reset_to_default 
           #puts "Resetting all occurrences counts to 0 ..."
-          Occurrence.where(:book_id => current_book.id).to_a.each do |occurrence|
+          Postgresql::Occurrence.where(:book_id => current_book.id).to_a.each do |occurrence|
             occurrence.count = 0
             occurrence.save
           end
@@ -99,7 +98,7 @@ file_paths.each_with_index do |file_path, index|
         city_names.each do |city_name|
           if cities.has_key?(city_name.to_sym)
             count = city_names.count{|word| word == city_name}
-            occurrence = Occurrence.where(:city_id => cities[city_name.to_sym], :book_id => current_book.id).first || Occurrence.new({city_id: cities[city_name.to_sym], book: current_book})
+            occurrence = Postgresql::Occurrence.where(:city_id => cities[city_name.to_sym], :book_id => current_book.id).first || Postgresql::Occurrence.new({city_id: cities[city_name.to_sym], book: current_book})
             occurrence.count = occurrence.count + count
             occurrence.save
           end

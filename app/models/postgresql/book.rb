@@ -1,4 +1,4 @@
-class Book < ActiveRecord::Base
+class Postgresql::Book < ActiveRecord::Base
   #attr_accessor :title
   #attr_accessor :translator
   #attr_accessor :release_date

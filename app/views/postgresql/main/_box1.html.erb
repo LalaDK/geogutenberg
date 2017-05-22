@@ -1,14 +1,14 @@
 <div class="col-xs-12 panel"ng-controller="box1Ctrl" ng-init="init();">
   <h3>Books by city name</h3>
   Given a city name the application returns all book titles with corresponding authors that mention this city.
-  <input type="text" ng-model="city" typeahead-on-select="onCitySelected($item, $model, $label, $event)" class="form-control" uib-typeahead="city.name as city.name for city in getCity($viewValue)" typeahead-loading="loadingCities" typeahead-no-results="noResults">
+  <input type="text" placeholder="Search city name ..." ng-model="city" typeahead-on-select="onCitySelected($item, $model, $label, $event)" class="form-control" uib-typeahead="city.name as city.name for city in getCity($viewValue)" typeahead-loading="loadingCities" typeahead-no-results="noResults">
   <i ng-show="loadingCities" class="glyphicon glyphicon-refresh"></i>
   <div ng-show="noResults">
     <i class="glyphicon glyphicon-remove"></i> No cities found.
   </div>
 
   <br>
-  Number of books: {{occurrences.length}}
+  Number of books: {{books.length}}
   <div id="occurrences_table">
     <table class="table table-striped table-bordered">
       <thead>
@@ -17,20 +17,18 @@
           <th>Translator</th>
           <th>Released</th>
           <th>Author</th>
-          <th>Occurrences</th>
         </tr>
       <tbody>
-        <tr ng-show="!occurrences.length"><td colspan="100" class="norows">No books to show.</td></tr>
-        <tr ng-repeat="occurrence in occurrences">
-          <td>{{occurrence.book.title}}</td>
-          <td>{{occurrence.book.translator}}</td>
-          <td>{{occurrence.book.release_date}}</td>
-          <td>{{occurrence.book.author.name}}</td>
-          <td>{{occurrence.count}}</td>
+        <tr ng-show="!books.length"><td colspan="100" class="norows">No books to show.</td></tr>
+        <tr ng-repeat="book in books | orderBy: 'title'">
+          <td>{{book.title}}</td>
+          <td>{{book.translator}}</td>
+          <td>{{book.release_date}}</td>
+          <td>{{book.author.name}}</td>
         </tr>
       </tbody>
       </thead>
     </table>
   </div>
 </div>
-<%= javascript_include_tag "box1_ctrl" %>
+<%= javascript_include_tag "postgresql/box1_ctrl" %>
