@@ -1,20 +1,17 @@
 /* global app */
 angular.module('mongodbServices', ['ngResource'])
-.factory('Book', ["$resource", function ($resource) {
-    return $resource('/postgresql/book/:id', {}, {
-      byCityId: {method: 'GET', isArray: true},
-      byLocation: {method: 'GET', isArray: true, url: '/postgresql/booksByLocation'}
+.factory('MongodbBook', ["$resource", function ($resource) {
+    return $resource('/mongodb/book/:id', {}, {
+      byCityId: {method: 'GET', isArray: true, url: '/mongodb/booksByCity'},
+      byLocation: {method: 'GET', isArray: true, url: '/mongodb/booksByLocation'},
+      byAuthor: {method: 'GET', isArray: true, url: '/mongodb/booksByAuthor'}
     });
   }])
-.factory('City', ["$resource", function ($resource) {
-    return $resource('/postgresql/city/:id', {}, {
+.factory('MongodbCity', ["$resource", function ($resource) {
+    return $resource('/mongodb/city/:id', {}, {
     })
   }])
-.factory('Occurrence', ["$resource", function ($resource) {
-    return $resource('/postgresql/occurrence/:id', {}, {
-    })
-  }])
-.factory('Author', ["$resource", function ($resource) {
-    return $resource('/postgresql/author/:id', {}, {
+.factory('MongodbAuthor', ["$resource", function ($resource) {
+    return $resource('/mongodb/author/:id', {}, {
     })
   }]);;

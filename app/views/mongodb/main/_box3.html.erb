@@ -3,10 +3,10 @@
   Given an author name the application lists all books written by that author and plots all cities mentioned in any of the books onto a map.
   <div class="form-inline">
     <div class="form-group">
-      <input type="text" ng-model="author" typeahead-on-select="onAuthorSelected($item, $model, $label, $event)" uib-typeahead="author.name as author.name for author in getAuthors($viewValue)" class="form-control" placeholder="Search author ..." typeahead-loading="loadingAuthors" typeahead-no-results="noResults">
+      <input type="text" ng-model="author" typeahead-on-select="onAuthorSelected($item, $model, $label, $event)" uib-typeahead="author.author as author.author for author in getAuthors($viewValue)" class="form-control" placeholder="Search author ..." typeahead-loading="loadingAuthors" typeahead-no-results="noResults">
       <i ng-show="loadingAuthors" class="glyphicon glyphicon-refresh"></i>
       <div ng-show="noResults">
-        <i class="glyphicon glyphicon-remove"></i> No cities found.
+        <i class="glyphicon glyphicon-remove"></i> No authors found.
       </div>
     </div>
     <br><br>
@@ -22,8 +22,8 @@
           <th>Translator</th>
         </tr>
       <tbody>
-        <tr ng-show="!currentAuthor.books.length"><td colspan="100" class="norows">No books to show.</td></tr>
-        <tr ng-repeat="book in currentAuthor.books">
+        <tr ng-show="!books.length"><td colspan="100" class="norows">No books to show.</td></tr>
+        <tr ng-repeat="book in books">
           <td><a ng-click="showOccurrences(book);">{{book.title}}</a></td>
           <td>{{book.release_date}}</td>
           <td>{{book.translator}}</td>

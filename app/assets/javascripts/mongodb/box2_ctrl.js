@@ -1,5 +1,6 @@
 // http://leafletjs.com/examples/quick-start/
-app.controller('box2Ctrl', ["$scope", "Book", function ($scope, Book) {
+app.controller('box2Ctrl', ["$scope", "MongodbBook",
+  function ($scope, MongodbBook) {
     $scope.cities = [];
     $scope.book = null;
     var map;
@@ -10,17 +11,17 @@ app.controller('box2Ctrl', ["$scope", "Book", function ($scope, Book) {
     };
 
     $scope.getBooks = function (searchStr) {
-      return Book.query({search: searchStr}).$promise;
+      return MongodbBook.query({search: searchStr}).$promise;
     };
 
     $scope.onBookSelected = function (book) {
-      Book.get({id: book.id}, function (data) {
+      MongodbBook.get({id: book._id}, function (data) {
         $scope.book = data;
         var markers = (data.occurrences || []).map(function (occurence) {
           var description = occurence.city.name + " (occurrences: " + occurence.count + ")"
           return {
-            lat: occurence.city.latitude,
-            lon: occurence.city.longitude,
+            lat: occurence.city.loc[1],
+            lon: occurence.city.loc[0],
             title: description,
             alt: description
           };

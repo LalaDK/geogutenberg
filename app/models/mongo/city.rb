@@ -7,5 +7,6 @@ class Mongo::City
   field :country_code, type: String
   field :loc, type: Array
   
+  index({:name_id => 1}, {name: "name_id_1" })
   index({loc: "2d"}, {background: true})
 end

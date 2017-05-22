@@ -1,6 +1,6 @@
-app.controller('box3Ctrl', ["$scope", "Author",
-  function ($scope, Author) {
-    $scope.currentAuthor = null;
+app.controller('box3Ctrl', ["$scope", "MongodbAuthor", "MongodbBook",
+  function ($scope, MongodbAuthor, MongodbBook) {
+    $scope.books = null;
     var map;
 
     $scope.init = function () {
@@ -9,19 +9,19 @@ app.controller('box3Ctrl', ["$scope", "Author",
     };
 
     $scope.getAuthors = function (searchStr) {
-      return Author.query({search: searchStr}).$promise;
+      return MongodbAuthor.query({search: searchStr}).$promise;
     };
 
     $scope.onAuthorSelected = function (author) {
-      $scope.currentAuthor = Author.get({id: author.id});
+      $scope.books = MongodbBook.byAuthor({id: author.author});
     };
 
     $scope.showOccurrences = function (book) {
       var markers = (book.occurrences || []).map(function (occurrence) {
         var description = occurrence.city.name + " (occurrences: " + occurrence.count + ")"
         return {
-          lat: occurrence.city.latitude,
-          lon: occurrence.city.longitude,
+          lat: occurrence.city.loc[1],
+          lon: occurrence.city.loc[0],
           title: description,
           alt: description
         };

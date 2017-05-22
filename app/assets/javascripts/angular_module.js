@@ -1,4 +1,4 @@
-var app = angular.module('geogutenberg', ['ui.bootstrap', 'mongodbServices', ['$httpProvider', '$provide', function($httpProvider, $provide) {
+var app = angular.module('geogutenberg', ['ui.bootstrap', 'postgresqlServices', 'mongodbServices', ['$httpProvider', '$provide', function($httpProvider, $provide) {
     $provide.factory('interceptor', ["$q", function($q) {
     return {
       'request': function(config) {

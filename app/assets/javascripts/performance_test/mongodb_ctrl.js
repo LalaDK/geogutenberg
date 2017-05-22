@@ -1,7 +1,7 @@
 /* global app */
 
-app.controller('mongodbCtrl', ["$scope", "$q", "Occurrence", "Book", "Author",
-  function ($scope, $q, Occurrence, Book, Author) {
+app.controller('mongodbCtrl', ["$scope", "$q", "MongodbBook", "MongodbAuthor",
+  function ($scope, $q, Book, Author) {
     $scope.testRunning = false;
     $scope.totalTime = " - ";
     $scope.query1result = " - ";
@@ -20,7 +20,7 @@ app.controller('mongodbCtrl', ["$scope", "$q", "Occurrence", "Book", "Author",
     $scope.query2status = "Not running";
     $scope.query3status = "Not running";
     $scope.query4status = "Not running";
-
+/*
     $scope.startTest = function () {
       $scope.testRunning = true;
       var query1promise = $q.defer();
@@ -144,7 +144,7 @@ app.controller('mongodbCtrl', ["$scope", "$q", "Occurrence", "Book", "Author",
         });
       });
     };
-
+*/
     function avg(arr) {
       var sum = arr.reduce((previous, current) => current += previous);
       return sum / arr.length;

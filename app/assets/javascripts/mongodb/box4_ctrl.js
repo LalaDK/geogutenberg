@@ -1,7 +1,7 @@
-app.controller('box4Ctrl', ["$scope", "Book",
-  function ($scope, Book) {
+app.controller('box4Ctrl', ["$scope", "MongodbBook",
+  function ($scope, MongodbBook) {
     $scope.radius = 200;
-    $scope.radiuses = [5, 10, 25, 50, 100, 200, 400, 500, 1000];
+    $scope.radiuses = [1, 2, 3, 5, 10, 25, 50, 75, 100, 150, 200];
     $scope.occurrences = [];
     var map;
     var circle;
@@ -14,7 +14,7 @@ app.controller('box4Ctrl', ["$scope", "Book",
 
     function onMapClicked(evt) {
       var location = {latitude: evt.latlng.lat, longitude: evt.latlng.lng, radius: $scope.radius};
-      $scope.occurrences = Book.byLocation(location);
+      $scope.occurrences = MongodbBook.byLocation(location);
       drawCircle(location.latitude, location.longitude, $scope.radius * 1000);
     }
 

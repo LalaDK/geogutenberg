@@ -1,14 +1,14 @@
-app.controller('box1Ctrl', ["$scope", "City", "Occurrence",
-  function ($scope, City, Occurrence) {
+app.controller('box1Ctrl', ["$scope", "MongodbCity", "MongodbBook",
+  function ($scope, MongodbCity, MongodbBook) {
     $scope.city = null;
-    $scope.occurrences = [];
+    $scope.books = [];
 
     $scope.getCity = function (searchStr) {
-      return City.query({search: searchStr}).$promise;
+      return MongodbCity.query({search: searchStr}).$promise;
     };
 
     $scope.onCitySelected = function (city) {
       $scope.city = city;
-      $scope.occurrences = Occurrence.query({city_id: $scope.city.id});
+      $scope.books = MongodbBook.query({city_id: $scope.city.id});
     };
   }]);

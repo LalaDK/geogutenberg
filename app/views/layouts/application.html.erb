@@ -4,12 +4,17 @@
     <title>Geogutenberg</title>
     <%= stylesheet_link_tag    "application", media: "all" %>
     <%= javascript_include_tag "application" %>
+    <%= javascript_include_tag "angular_module" %>
+    <%= javascript_include_tag "postgresql_services" %>
+    <%= javascript_include_tag "mongodb_services" %>
+    <%= stylesheet_link_tag "https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" %>
+    <%= javascript_include_tag "https://unpkg.com/leaflet@1.0.3/dist/leaflet.js" %>
     <%= csrf_meta_tags %>
   </head>
   <body>
     <div id="loading">
-        <img src="/wheel.gif">
-      </div>
+      <img src="/wheel.gif">
+    </div>
     <div id="loading-container">
     </div>
     <div ng-app="geogutenberg">
@@ -18,11 +23,11 @@
         <div class="col-xs-12 center panel">
           <h2>Database Assignment - Project Gutenberg</h2>
           <h3>Mads Dam Eckardt Jensen</h3>
-          
+
           <a href="/postgresql/main">PostgreSQL</a> / 
           <a href="/mongodb/main">MongoDB</a> / 
           <a href="/performance_test/main">Performance test</a>
-          
+
         </div>
         <div id="maincontent">
           <%= yield %>    

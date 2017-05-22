@@ -6,7 +6,7 @@
       <input type="text" ng-model="author" typeahead-on-select="onAuthorSelected($item, $model, $label, $event)" uib-typeahead="author.name as author.name for author in getAuthors($viewValue)" class="form-control" placeholder="Search author ..." typeahead-loading="loadingAuthors" typeahead-no-results="noResults">
       <i ng-show="loadingAuthors" class="glyphicon glyphicon-refresh"></i>
       <div ng-show="noResults">
-        <i class="glyphicon glyphicon-remove"></i> No cities found.
+        <i class="glyphicon glyphicon-remove"></i> No authors found.
       </div>
     </div>
     <br><br>

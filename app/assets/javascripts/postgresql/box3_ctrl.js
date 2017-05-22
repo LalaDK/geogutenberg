@@ -1,5 +1,5 @@
-app.controller('box3Ctrl', ["$scope", "Author",
-  function ($scope, Author) {
+app.controller('box3Ctrl', ["$scope", "PostgresqlAuthor",
+  function ($scope, PostgresqlAuthor) {
     $scope.currentAuthor = null;
     var map;
 
@@ -9,11 +9,11 @@ app.controller('box3Ctrl', ["$scope", "Author",
     };
 
     $scope.getAuthors = function (searchStr) {
-      return Author.query({search: searchStr}).$promise;
+      return PostgresqlAuthor.query({search: searchStr}).$promise;
     };
 
     $scope.onAuthorSelected = function (author) {
-      $scope.currentAuthor = Author.get({id: author.id});
+      $scope.currentAuthor = PostgresqlAuthor.get({id: author.id});
     };
 
     $scope.showOccurrences = function (book) {

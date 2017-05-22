@@ -1,14 +1,14 @@
-app.controller('box1Ctrl', ["$scope", "City", "Occurrence", "Book",
-  function ($scope, City, Occurrence, Book) {
+app.controller('box1Ctrl', ["$scope", "PostgresqlCity", "PostgresqlBook",
+  function ($scope, PostgresqlCity, PostgresqlBook) {
     $scope.city = null;
     $scope.books = [];
 
     $scope.getCity = function (searchStr) {
-      return City.query({search: searchStr}).$promise;
+      return PostgresqlCity.query({search: searchStr}).$promise;
     };
 
     $scope.onCitySelected = function (city) {
       $scope.city = city;
-      $scope.books = Book.byCityId({city_id: $scope.city.id});
+      $scope.books = PostgresqlBook.byCityId({city_id: $scope.city.id});
     };
   }]);
