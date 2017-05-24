@@ -1,5 +1,5 @@
 class Mongodb::BookController < ApplicationController
-    def index
+  def index
     respond_to do |format|
       format.json do
         if params.has_key?(:search)
@@ -15,7 +15,7 @@ class Mongodb::BookController < ApplicationController
   def show
     respond_to do |format|
       format.json do
-        book = Mongo::Book.find(params[:id])
+        book = Mongo::Book.find(BSON::ObjectId(params[:id]))
         render json: book.as_json(:include => {:occurrences => {:include => [:city]}})
       end
     end
@@ -34,7 +34,6 @@ class Mongodb::BookController < ApplicationController
     respond_to do |format|
       format.json do
         query = Mongo::Book.where("occurrences.city_id" => params[:id].to_i)
-        binding.pry
         render json: query.to_a.as_json(:except => [:occurrences, :file_path])
       end
     end
