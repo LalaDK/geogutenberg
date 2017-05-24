@@ -33,8 +33,9 @@ class Mongodb::BookController < ApplicationController
   def books_by_city
     respond_to do |format|
       format.json do
-        query = Mongo::Book.where(:"occurrences.city_id" => params[:id].to_i)
-        render json: query.to_a.as_json
+        query = Mongo::Book.where("occurrences.city_id" => params[:id].to_i)
+        binding.pry
+        render json: query.to_a.as_json(:except => [:occurrences, :file_path])
       end
     end
   end

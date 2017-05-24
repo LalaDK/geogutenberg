@@ -1,5 +1,6 @@
 class Mongo::Book
   include Mongoid::Document
+  store_in :collection => "books"
   field :title, type: String
   field :author, type: String
   field :translator, type: String
