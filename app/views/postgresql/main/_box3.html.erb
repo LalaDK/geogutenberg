@@ -18,15 +18,11 @@
       <thead>
         <tr>
           <th>Title</th>
-          <th>Release Date</th>
-          <th>Translator</th>
         </tr>
       <tbody>
-        <tr ng-show="!currentAuthor.books.length"><td colspan="100" class="norows">No books to show.</td></tr>
-        <tr ng-repeat="book in currentAuthor.books">
-          <td><a ng-click="showOccurrences(book);">{{book.title}}</a></td>
-          <td>{{book.release_date}}</td>
-          <td>{{book.translator}}</td>
+        <tr ng-show="!data"><td colspan="100" class="norows">No books to show.</td></tr>
+        <tr ng-repeat="(title, cities) in data">
+          <td><a ng-click="showOccurrences(cities);">{{title}}</a></td>
         </tr>
       </tbody>
       </thead>

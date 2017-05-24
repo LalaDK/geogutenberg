@@ -8,7 +8,8 @@ class Mongo::Book
   field :author, type: String
   embeds_many :occurrences, :class_name => "Mongo::Occurrence"
   
-  index({:title_id => 1}, {name: "title_id_1" })
-  index({:author_id => 1}, {name: "author_id_1" })
-  index({:file_path_id => 1}, {name: "file_path_id_1" })
+  index({:title => 1}, {name: "title_1" })
+  index({:author => 1}, {name: "author_1" })
+  index({:file_path => 1}, {name: "file_path_1" })
+  index({:"occurrences.city_id" => 1}, {name: "occurrences.city_id_1" })
 end

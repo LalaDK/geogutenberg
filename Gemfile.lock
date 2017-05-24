@@ -54,8 +54,9 @@ GEM
       mongo (~> 2.1)
       origin (~> 2.2)
       tzinfo (>= 0.3.37)
-    mongoid-geospatial (5.0.0)
-      mongoid (>= 5.0.0.beta)
+    mongoid_spacial (0.2.13)
+      activesupport
+      mongoid
     multi_json (1.12.1)
     origin (2.2.0)
     pg (0.20.0)
@@ -113,7 +114,7 @@ DEPENDENCIES
   jbuilder (~> 1.2)
   mongo
   mongoid
-  mongoid-geospatial
+  mongoid_spacial
   pg
   pry
   rails (= 4.0.4)

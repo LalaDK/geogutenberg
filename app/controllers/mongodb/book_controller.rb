@@ -33,7 +33,7 @@ class Mongodb::BookController < ApplicationController
   def books_by_city
     respond_to do |format|
       format.json do
-        query = Mongo::Book.where(:"occurrences.city_id" => params[:city_id])
+        query = Mongo::Book.where(:"occurrences.city_id" => params[:id].to_i)
         render json: query.to_a.as_json
       end
     end
@@ -42,9 +42,10 @@ class Mongodb::BookController < ApplicationController
   def by_location
     respond_to do |format|
       format.json do
-        city_ids = Postgresql::City.within((params[:radius].to_i > 200 ? 200 : params[:radius]), :origin => [params[:latitude].to_f, params[:longitude].to_f]).pluck(:id)
-        data = Postgresql::Occurrence.where(:city_id => city_ids).includes(:city, :book)
-        render json: data.as_json(:include => {:city => {:only => [:name]}, :book => {:only => [:title]}})
+        radius = (params[:radius].to_i > 200 ? 200 : params[:radius].to_i) / 111.12
+        city_ids = Mongo::City.where(:loc => {:"$near" => [params[:longitude].to_f, params[:latitude].to_f], :"$maxDistance" => radius}).to_a.map &:id
+        data = Mongo::Book.where(:"occurrences.city_id".in => city_ids)
+        render json: data.as_json
       end
     end
   end

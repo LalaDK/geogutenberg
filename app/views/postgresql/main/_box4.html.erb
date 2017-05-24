@@ -14,15 +14,13 @@
       <thead>
         <tr>
           <th>Book</th>
-          <th>City</th>
-          <th>Occurrences</th>
+          <th>Author</th>
         </tr>
       <tbody>
-        <tr ng-show="!occurrences.length"><td colspan="100" class="norows">No books to show.</td></tr>
-        <tr ng-repeat="occurrence in occurrences | orderBy: '-count'">
-          <td>{{occurrence.book.title}}</td>
-          <td>{{occurrence.city.name}}</td>
-          <td>{{occurrence.count}}</td>
+        <tr ng-show="!books.length"><td colspan="100" class="norows">No books to show.</td></tr>
+        <tr ng-repeat="book in books | orderBy: '-count'">
+          <td>{{book[1]}}</td>
+          <td>{{book[6]}}</td>
         </tr>
       </tbody>
       </thead>

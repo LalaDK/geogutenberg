@@ -25,10 +25,8 @@ class Postgresql::BookController < ApplicationController
   def books_by_city
     respond_to do |format|
       format.json do
-        query_params = {:city_id => params[:city_id].to_i}
-        book_ids = Postgresql::Occurrence.where(query_params).pluck(:book_id)
-        query = Postgresql::Book.where(:id => book_ids)
-        render json: query.to_a.as_json(:include => [:author])
+        data = Postgresql::Book.connection.query("SELECT * FROM books LEFT JOIN authors ON authors.id = books.author_id WHERE books.id IN (SELECT book_id FROM occurrences WHERE city_id = #{params[:city_id]});")
+        render json: data.to_a
       end
     end
   end
@@ -37,7 +35,7 @@ class Postgresql::BookController < ApplicationController
     respond_to do |format|
       format.json do
         city_ids = Postgresql::City.within((params[:radius].to_i > 200 ? 200 : params[:radius]), :origin => [params[:latitude].to_f, params[:longitude].to_f]).pluck(:id)
-        data = Postgresql::Occurrence.where(:city_id => city_ids).includes(:city, :book)
+        data = Postgresql::Occurrence.connection.query("SELECT * FROM books NATURAL JOIN authors WHERE id IN (SELECT book_id FROM occurrences WHERE city_id IN (#{city_ids.join(', ')}));")
         render json: data.as_json(:include => {:city => {:only => [:name]}, :book => {:only => [:title]}})
       end
     end

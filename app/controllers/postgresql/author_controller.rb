@@ -15,8 +15,10 @@ class Postgresql::AuthorController < ApplicationController
   def show
     respond_to do |format|
       format.json do
-        author = Postgresql::Author.find(params[:id])
-        render json: author.as_json(:include => {:books => {:include => {:occurrences => {:include => [:city]}}}})
+        data = Postgresql::Author.connection.query("SELECT title, count, cities.name, latitude, longitude FROM books JOIN occurrences ON books.id = occurrences.book_id JOIN cities ON occurrences.city_id = cities.id WHERE author_id = #{params[:id]};").to_a
+        
+        
+        render json: data.group_by{|a| a[0]}
       end
     end
   end

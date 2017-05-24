@@ -7,7 +7,9 @@ gem 'geokit-rails'
 gem 'pry'
 gem 'mongo'
 gem 'mongoid'
-gem 'mongoid-geospatial', require: 'mongoid/geospatial'
+#gem 'mongoid-geospatial', require: 'mongoid/geospatial'
+gem 'mongoid_spacial'
+
 
 
 group :doc do

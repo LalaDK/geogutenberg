@@ -54,11 +54,16 @@ body {
   padding-top: 25px;
   width: 180px;
   height: 180px;
-  border-radius: 20px;
+  border-radius: 100px;
   border: 1px solid #333;
   z-index: 10001;
 }
 
 #loading img {
   width: 130px;
+}
+
+.panel {
+  max-height: 535px;
+  overflow-y: auto;
 }

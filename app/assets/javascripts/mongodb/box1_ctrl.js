@@ -9,6 +9,6 @@ app.controller('box1Ctrl', ["$scope", "MongodbCity", "MongodbBook",
 
     $scope.onCitySelected = function (city) {
       $scope.city = city;
-      $scope.books = MongodbBook.query({city_id: $scope.city.id});
+      $scope.books = MongodbBook.byCityId({id: $scope.city._id});
     };
   }]);

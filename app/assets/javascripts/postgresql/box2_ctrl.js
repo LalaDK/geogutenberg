@@ -1,5 +1,6 @@
 // http://leafletjs.com/examples/quick-start/
-app.controller('box2Ctrl', ["$scope", "PostgresqlBook", function ($scope, Book) {
+app.controller('box2Ctrl', ["$scope", "PostgresqlBook", "PostgresqlCity", 
+  function ($scope, PostgresqlBook, PostgresqlCity) {
     $scope.cities = [];
     $scope.book = null;
     var map;
@@ -14,13 +15,13 @@ app.controller('box2Ctrl', ["$scope", "PostgresqlBook", function ($scope, Book) 
     };
 
     $scope.onBookSelected = function (book) {
-      PostgresqlBook.get({id: book.id}, function (data) {
-        $scope.book = data;
-        var markers = (data.occurrences || []).map(function (occurence) {
-          var description = occurence.city.name + " (occurrences: " + occurence.count + ")"
+      PostgresqlCity.byBook({id: book.id}, function (data) {
+        $scope.cities = data;
+        var markers = (data || []).map(function (city) {
+          var description = city[3] + " (occurrences: " + city[0] + ")"
           return {
-            lat: occurence.city.latitude,
-            lon: occurence.city.longitude,
+            lat: city[4],
+            lon: city[5],
             title: description,
             alt: description
           };

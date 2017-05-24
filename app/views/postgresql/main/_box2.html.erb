@@ -21,10 +21,10 @@
           <th>Occurences</th>
         </tr>
       <tbody>
-        <tr ng-show="!book.occurrences.length"><td colspan="100" class="norows">No occurrences to show.</td></tr>
-        <tr ng-repeat="occurrence in book.occurrences | orderBy: '-count'">
-          <td><a ng-click="goToLocation(occurrence.city.latitude, occurrence.city.longitude);">{{occurrence.city.name}}</a></td>
-          <td>{{occurrence.count}}</td>
+        <tr ng-show="!cities.length"><td colspan="100" class="norows">No occurrences to show.</td></tr>
+        <tr ng-repeat="city in cities | orderBy: '-0'">
+          <td><a ng-click="goToLocation(city[4], city[5]);">{{city[3]}}</a></td>
+          <td>{{city[0]}}</td>
         </tr>
       </tbody>
       </thead>

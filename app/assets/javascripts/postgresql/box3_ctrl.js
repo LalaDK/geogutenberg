@@ -1,6 +1,6 @@
 app.controller('box3Ctrl', ["$scope", "PostgresqlAuthor",
   function ($scope, PostgresqlAuthor) {
-    $scope.currentAuthor = null;
+    $scope.data = null;
     var map;
 
     $scope.init = function () {
@@ -13,15 +13,16 @@ app.controller('box3Ctrl', ["$scope", "PostgresqlAuthor",
     };
 
     $scope.onAuthorSelected = function (author) {
-      $scope.currentAuthor = PostgresqlAuthor.get({id: author.id});
+      $scope.data = PostgresqlAuthor.get({id: author.id});
     };
 
     $scope.showOccurrences = function (book) {
-      var markers = (book.occurrences || []).map(function (occurrence) {
-        var description = occurrence.city.name + " (occurrences: " + occurrence.count + ")"
+      var markers = (book || []).map(function (city) {
+        console.log(city)
+        var description = city[1] + " (occurrences: " + city[0] + ")"
         return {
-          lat: occurrence.city.latitude,
-          lon: occurrence.city.longitude,
+          lat: city[3],
+          lon: city[4],
           title: description,
           alt: description
         };

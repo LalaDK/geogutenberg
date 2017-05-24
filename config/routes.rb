@@ -6,6 +6,7 @@ Geogutenberg::Application.routes.draw do
     get "booksByCity", :controller => "book", :action => "books_by_city"
     get "booksByLocation", :controller => "book", :action => "by_location"
     resources :city, :only => ["index"]
+    get "citiesByBook", :controller => "city", :action => "by_book"
   end
   
   root to: 'postgresql/main#index'

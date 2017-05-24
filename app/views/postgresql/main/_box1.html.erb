@@ -21,10 +21,10 @@
       <tbody>
         <tr ng-show="!books.length"><td colspan="100" class="norows">No books to show.</td></tr>
         <tr ng-repeat="book in books | orderBy: 'title'">
-          <td>{{book.title}}</td>
-          <td>{{book.translator}}</td>
-          <td>{{book.release_date}}</td>
-          <td>{{book.author.name}}</td>
+          <td>{{book[1]}}</td>
+          <td>{{book[2]}}</td>
+          <td>{{book[3]}}</td>
+          <td>{{book[6]}}</td>
         </tr>
       </tbody>
       </thead>

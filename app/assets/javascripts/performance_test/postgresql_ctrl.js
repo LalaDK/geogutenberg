@@ -113,7 +113,7 @@ app.controller('postgresqlCtrl', ["$scope", "$q", "PostgresqlBook", "PostgresqlA
         var query4times = [];
         var query4startTime = new Date().getTime();
         var location1 = {latitude: 55.73948169869349, longitude: 12.524414062500002, radius: 20};
-        var location2 = {latitude: 51.6180165487737, longitude: -0.3515625, radius: 200};
+        var location2 = {latitude: 51.6180165487737, longitude: -0.3515625, radius: 20};
         var location3 = {latitude: 48.88639177703194, longitude: 2.2741699218750004, radius: 20};
         var location4 = {latitude: 40.75557964275589, longitude: -74.03686523437501, radius: 20};
         var location5 = {latitude: 53.54030739150022, longitude: 10.019531250000002, radius: 20};

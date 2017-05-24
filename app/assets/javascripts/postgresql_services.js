@@ -8,6 +8,7 @@ angular.module('postgresqlServices', ['ngResource'])
   }])
 .factory('PostgresqlCity', ["$resource", function ($resource) {
     return $resource('/postgresql/city/:id', {}, {
+      byBook: {method: 'GET', isArray: true, url: '/postgresql/citiesByBook'}
     });
   }])
 .factory('PostgresqlAuthor', ["$resource", function ($resource) {
